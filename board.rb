@@ -39,6 +39,16 @@ class Board
     end
   end
 
+  def reveal_position(pos)  # recursive reveal
+    tile = self.grid[pos[1]][pos[0]]
+    tile.reveal
+    if tile.val == "0"
+      array = tile.neighbors  # [[0,0], [1, 0]]
+      array.each {|square| self.reveal_position(square.pos)}
+    end
+
+  end
+
 
 end
 

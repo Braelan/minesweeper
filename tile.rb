@@ -27,13 +27,16 @@ class Tile
     if self.revealed?
       if self.bombed?
         @val = "B"
-      elsif self.flagged?
-        @val = "?"
+
       else
         @val = "#{self.neighbor_bomb_count}"
       end
     else
-      @val = " "
+      if self.flagged?
+        @val = "?"
+      else
+        @val = " "
+      end
     end
 
   end
