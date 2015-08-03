@@ -18,25 +18,29 @@ class Game
   end
 
   def play
-    # until won?
+     until won?
     #debugger
       self.board.render
       pos, choice = get_input
       outcomes(pos, choice)
-    # end
-    # if won?
-    #   puts "Congratulations! You won!"
-    # else
-    #   puts "You lost!!"
-    # end
+     end
+     if won?
+       puts "Congratulations! You won!"
+     else
+       puts "You lost!!"
+     end
   end
 
-  # def won?
-  #   return true if board.grid.all do |tiles|
-  #     tiles.all do |tile|
-  #       tile.revealed? || tile.bombed?
-  #   end
-  # end
+
+
+  def won?
+    return true if board.grid.all? do |rows|
+      rows.all? do |tile|
+        tile.revealed? || tile.bombed?
+      end
+    end
+    false
+  end
 
   def outcomes(pos, choice)
     case
@@ -65,4 +69,9 @@ class Game
   end
 
 
+end
+
+if __FILE__ == $PROGRAM_NAME
+  game = Game.new
+  game.play
 end
