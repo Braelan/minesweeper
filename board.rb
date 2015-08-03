@@ -34,7 +34,24 @@ class Board
       row.each {|col| print ( "| #{col.val} ")}
       print "|"
       print "\n"
-       print "-------------------------------------"
+      print "-------------------------------------"
+      print "\n"
+    end
+  end
+
+  def update_dev
+    self.grid.each do |row|
+      row.each{ |col| col.status_update_dev}
+    end
+  end
+
+  def render_dev
+     self.update_dev
+    @grid.each do |row|
+      row.each {|col| print ( "| #{col.val} ")}
+      print "|"
+      print "\n"
+      print "-------------------------------------"
       print "\n"
     end
   end
@@ -42,9 +59,13 @@ class Board
   def reveal_position(pos)  # recursive reveal
     tile = self.grid[pos[1]][pos[0]]
     tile.reveal
+    tile.status_update
+    p 'start'
     if tile.val == "0"
       array = tile.neighbors  # [[0,0], [1, 0]]
-      array.each {|square| self.reveal_position(square.pos)}
+      array.each {|square|
+    self.reveal_position(square.pos) if !square.revealed?}
+
     end
 
   end

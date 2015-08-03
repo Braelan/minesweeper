@@ -1,5 +1,6 @@
 require_relative 'board.rb'
 require_relative 'tile.rb'
+# require 'byebug'
 
 class Game
   attr_accessor :board
@@ -17,17 +18,31 @@ class Game
   end
 
   def play
-    self.board.render
-    pos, choice = get_input
-    outcomes(pos, choice)
-
+    # until won?
+    #debugger
+      self.board.render
+      pos, choice = get_input
+      outcomes(pos, choice)
+    # end
+    # if won?
+    #   puts "Congratulations! You won!"
+    # else
+    #   puts "You lost!!"
+    # end
   end
 
+  # def won?
+  #   return true if board.grid.all do |tiles|
+  #     tiles.all do |tile|
+  #       tile.revealed? || tile.bombed?
+  #   end
+  # end
+
   def outcomes(pos, choice)
-    case choice
+    case
     when choice == "f"
     when choice == "r"
-      board.reveal_position(pos)
+      self.board.reveal_position(pos)
     when choice == "a"
     end
   end

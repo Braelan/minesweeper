@@ -27,7 +27,6 @@ class Tile
     if self.revealed?
       if self.bombed?
         @val = "B"
-
       else
         @val = "#{self.neighbor_bomb_count}"
       end
@@ -38,6 +37,23 @@ class Tile
         @val = " "
       end
     end
+
+  end
+
+  def status_update_dev
+    # if self.revealed?
+      if self.bombed?
+        @val = "B"
+      else
+        @val = "#{self.neighbor_bomb_count}"
+      end
+    # else
+      if self.flagged?
+        @val = "?"
+      # else
+      #   @val = " "
+      end
+    # end
 
   end
 
