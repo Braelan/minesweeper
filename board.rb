@@ -20,6 +20,7 @@ class Board
   end
 
   def seed_bombs
+    self.dup.grid.flatten.shuffle.take(SIZE).each{|el| el.bombed = true}
   end
 
   def render

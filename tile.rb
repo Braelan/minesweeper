@@ -22,6 +22,10 @@ class Tile
     @val = newval
   end
 
+    # if self.bombed?
+    #   @val = "O"
+    # end
+
   def reveal
     self.revealed = true
   end
@@ -62,7 +66,7 @@ class Tile
   end
 
   def inspect
-    "#{pos}"
+    "#{bombed?} #{pos}"
   end
 
   # def print
