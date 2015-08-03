@@ -23,8 +23,13 @@ class Board
     self.dup.grid.flatten.shuffle.take(SIZE).each{|el| el.bombed = true}
   end
 
+  def update
+    self.grid.each do |row|
+      row.each{ |col| col.status_update}
+    end
+  end
   def render
-
+     self.update
     @grid.each do |row|
       row.each {|col| print ( "| #{col.val} ")}
       print "|"

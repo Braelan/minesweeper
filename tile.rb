@@ -11,7 +11,7 @@ class Tile
     @board = board
     #position is in [x,y] form
     @pos = pos
-    @val = "X"
+    @val = " "
   end
 
   def val
@@ -22,9 +22,17 @@ class Tile
     @val = newval
   end
 
-    # if self.bombed?
-    #   @val = "O"
-    # end
+
+  def status_update
+    if self.bombed?
+      @val = "B"
+    elsif self.flagged?
+      @val = "?"
+    elsif !self.revealed?
+      @val = "#{self.neighbor_bomb_count}"
+    end
+
+  end
 
   def reveal
     self.revealed = true
@@ -45,11 +53,11 @@ class Tile
   def neighbors
     neighbor_array = []
     deltas = [-1,0,1]
-    deltas.each do |x|
-        deltas.each do |y|
+    deltas.each do |y|  #0 is the first row e grid[0]
+        deltas.each do |x|
           x_offset, y_offset = x + pos[0], y + pos[1]
           if onboard?(x_offset, y_offset)
-            neighbor_array <<  self.board.grid[x_offset][y_offset]
+            neighbor_array <<  self.board.grid[y_offset][x_offset]
           end
         end
     end
@@ -62,11 +70,13 @@ class Tile
   end
 
   def neighbor_bomb_count
-
+    count = 0
+    self.neighbors.each{|neighbor| count += 1 if neighbor.bombed?}
+    count
   end
 
   def inspect
-    "#{bombed?} #{pos}"
+    "#{pos}, #{val}"
   end
 
   # def print
