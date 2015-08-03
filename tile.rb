@@ -1,7 +1,7 @@
 require_relative 'board'
 
 class Tile
-  attr_accessor :bombed, :flagged, :revealed
+  attr_accessor :bombed, :flagged, :revealed, :val, :pos
 
 
   def initialize (board, pos)
@@ -11,7 +11,15 @@ class Tile
     @board = board
     #position is in [x,y] form
     @pos = pos
+    @val = "X"
+  end
 
+  def val
+    @val
+  end
+
+  def val=(newval)
+    @val = newval
   end
 
   def reveal
@@ -32,7 +40,7 @@ class Tile
 
   def neighbors
     neighbor_array = []
-     board
+    board
   end
 
   def neighbor_bomb_count
@@ -40,9 +48,11 @@ class Tile
   end
 
   def inspect
-    "#{bombed}, #{flagged}, #{revealed}, #{pos}"
+    "#{pos}"
   end
 
-
+  # def print
+  #
+  # end
 
 end

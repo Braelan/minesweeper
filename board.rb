@@ -1,5 +1,5 @@
 require_relative 'tile'
-
+require 'byebug'
 class Board
   attr_accessor :grid
 
@@ -9,21 +9,36 @@ class Board
 
   end
 
-  def fill_with_tiles
+  def populate
     self.grid.each_with_index do |row, idy|
       row.each_with_index do |col, idx|
         self.grid[idy][idx] = Tile.new(self, [idx,idy])
       end
     end
   #  self.grid[0][0] = Tile.new(self, [0,0])
-  self.grid
+    self.grid
   end
 
   def seed_bombs
   end
 
-  def print
+  def render
+
+    @grid.each do |row|
+      row.each {|col| print ( "| #{col.val} ")}
+      print "|"
+      print "\n"
+       print "-------------------------------------"
+      print "\n"
+    end
   end
 
+
+end
+
+if __FILE__ == $PROGRAM_NAME
+  board = Board.new
+  board.populate
+  board.render
 
 end
