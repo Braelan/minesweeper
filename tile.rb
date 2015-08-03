@@ -1,3 +1,5 @@
+require_relative 'board'
+
 class Tile
   attr_accessor :bombed, :flagged, :revealed
 
@@ -9,6 +11,7 @@ class Tile
     @board = board
     #position is in [x,y] form
     @pos = pos
+
   end
 
   def reveal
@@ -34,6 +37,10 @@ class Tile
 
   def neighbor_bomb_count
 
+  end
+
+  def inspect
+    "#{bombed}, #{flagged}, #{revealed}, #{pos}"
   end
 
 
