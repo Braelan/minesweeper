@@ -24,18 +24,23 @@ class Tile
 
 
   def status_update
-    if self.bombed?
-      @val = "B"
-    elsif self.flagged?
-      @val = "?"
-    elsif !self.revealed?
-      @val = "#{self.neighbor_bomb_count}"
+    if self.revealed?
+      if self.bombed?
+        @val = "B"
+      elsif self.flagged?
+        @val = "?"
+      else
+        @val = "#{self.neighbor_bomb_count}"
+      end
+    else
+      @val = " "
     end
 
   end
 
   def reveal
     self.revealed = true
+
   end
 
   def bombed?
