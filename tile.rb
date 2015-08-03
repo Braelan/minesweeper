@@ -1,7 +1,7 @@
 require_relative 'board'
 
 class Tile
-  attr_accessor :bombed, :flagged, :revealed, :val, :pos
+  attr_accessor :bombed, :flagged, :revealed, :val, :pos, :board
 
 
   def initialize (board, pos)
@@ -40,7 +40,21 @@ class Tile
 
   def neighbors
     neighbor_array = []
-    board
+    deltas = [-1,0,1]
+    deltas.each do |x|
+        deltas.each do |y|
+          x_offset, y_offset = x + pos[0], y + pos[1]
+          if onboard?(x_offset, y_offset)
+            neighbor_array <<  self.board.grid[x_offset][y_offset]
+          end
+        end
+    end
+    neighbor_array.delete(self)
+    neighbor_array
+  end
+
+  def onboard?(arg1, arg2)
+    [arg1,arg2].all?{|el| el.between?(0,8)}
   end
 
   def neighbor_bomb_count
